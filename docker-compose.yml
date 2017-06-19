@@ -1,0 +1,19 @@
+version: '3.2'
+
+services:
+
+  backend-service:
+    build:
+      context: ./src/BackendService
+    container_name: backend-service-api
+      
+  frontend-service:
+    build:
+      context: ./src/FrontendService
+    ports:
+     - "5001:80"
+    environment:
+      - "Endpoints:Backend=http://backend-service:80"
+    container_name: frontend-service-api
+    depends_on:
+      - backend-service
